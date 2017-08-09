@@ -9,23 +9,29 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
+import {LoginManager} from 'react-native-fbsdk';
 
 export default class RNLogin extends Component {
+  _fbAuth() {
+    LoginManager
+      .logInWithReadPermissions(['public_profile', 'email'])
+      .then(result => {
+        if (result.isCancelled) {
+          console.log('Login was Cancelled');
+        } else {
+          console.log(`Login was a success ${result.grantedPermissions.toString()}`)
+        }
+      }, error => consle.error(error))
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <TouchableOpacity onPress={this._fbAuth()}>
+        </TouchableOpacity>
       </View>
     );
   }
