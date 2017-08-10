@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "818148562943",
+    "firebase_url": "https://rnlogin-822e7.firebaseio.com",
+    "project_id": "rnlogin-822e7",
+    "storage_bucket": "rnlogin-822e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818148562943:android:b853308ab223b340",
+        "android_client_info": {
+          "package_name": "com.rnlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818148562943-g9799dfu6udghenbjpd9h0la4e8ivbko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rnlogin",
+            "certificate_hash": "068c452afc1975c8064c015ba90350c30da762ca"
+          }
+        },
+        {
+          "client_id": "818148562943-5iqp0vp3s2eqj01aueffmd3u1v17vimt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwND57J52xFUDVYDGHQuM04lxRlkI1hgw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818148562943-5iqp0vp3s2eqj01aueffmd3u1v17vimt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
