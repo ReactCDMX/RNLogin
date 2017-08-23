@@ -30,7 +30,11 @@ const config = {
 const firebase = RNFirebase.initializeApp(config);
 
 export default class RNLogin extends Component {
-  _fbAuth() {
+  state = {
+    user: undefined
+  }
+
+  fbAuth = () => {
     LoginManager
       .logInWithReadPermissions(['public_profile', 'email'])
       .then(result => {
@@ -44,16 +48,42 @@ export default class RNLogin extends Component {
         const credential = firebase.auth.FacebookAuthProvider.credential(accessToken);
         return firebase.auth().signInWithCredential(credential);
       })
-      .then(currentUser => console.info(JSON.stringify(currentUser.toJSON())))
+      .then(currentUser => {
+        const {providerData: [{displayName: user}]} = currentUser;
+        this.setState({user});
+      })
       .catch(error => console.error(error));
   }
 
+  logout = async () => {
+    try {
+      let signOut = true;
+      signOut = await firebase.auth().signOut();
+      if (!signOut) this.setState({user: null});
+    } catch (e) {
+      console.error(error);
+    }
+  }
+
   render() {
+    const {user} = this.state;
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this._fbAuth}>
-          <Text>Login with Facebook</Text>
-        </TouchableOpacity>
+        { user ?
+          <View style={styles.containerUser}>
+            <Text style={styles.text}>
+              Hola{'\n'}
+              <Text style={styles.user}>{user}</Text>
+              <Text style={styles.text}>{'\n'}Bienvenido a este demo de @ReactCDMX</Text>
+            </Text>
+            <TouchableOpacity style={{marginTop: 20}} onPress={this.logout}>
+              <Text>Logout</Text>
+            </TouchableOpacity>
+          </View> :
+          <TouchableOpacity onPress={this.fbAuth}>
+            <Text>Login with Facebook</Text>
+          </TouchableOpacity>
+        }
       </View>
     );
   }
@@ -66,16 +96,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  containerUser: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  user: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 AppRegistry.registerComponent('RNLogin', () => RNLogin);
